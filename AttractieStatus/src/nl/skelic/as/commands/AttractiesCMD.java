@@ -11,7 +11,7 @@ import nl.skelic.as.utils.MsgUtil;
 
 public class AttractiesCMD implements CommandExecutor {
 	
-private Core plugin;
+	private Core plugin;
 	
 	public AttractiesCMD(Core plugin) {
 		this.plugin = plugin;
@@ -21,16 +21,16 @@ private Core plugin;
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!(sender instanceof Player)) {
 			sender.sendMessage(MsgUtil.NOTPLR.getMessage());
-			return false;
+			return true;
 		}
 		
 		Player player = (Player) sender;
 		if (command.getName().equalsIgnoreCase("attracties")) {
 				if (sender.hasPermission("attractiestatus.attracties")) {
 					Menus.zonesMenu(player);
-					return false;
+					return true;
 			}
 		}
-	return false;
+	return true;
 	}
 }
