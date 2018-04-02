@@ -1,13 +1,13 @@
 main: nl.skelic.as.Core
 name: AttractieStatus
-version: 1.0
+version: 1.1
 author: SkelicStylz
 description: AttractieStatus Plugin is gemaakt voor PretPark servers.
 commands:
   attractiestatus:
     description: Dit commando word gebruikt voor alle AttractieStatus Functiens,
     usage: /<command>
-    aliases: [as]
+    aliases: [as, astatus]
     permission: attractiestatus.*
     permission-message: Sorry je hebt geen permissie om dit comand uit te voeren!
   attracties:

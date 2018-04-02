@@ -22,7 +22,7 @@ public class AttractieStatusCMD implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!(sender instanceof Player)) {
 			sender.sendMessage(MsgUtil.NOTPLR.getMessage());
-			return false;
+			return true;
 		}
 		
 		if (command.getName().equalsIgnoreCase("attractiestatus")) {
@@ -38,21 +38,21 @@ public class AttractieStatusCMD implements CommandExecutor {
 					sender.sendMessage(ChatColor.GREEN + "/AttractieStatus setzone <Attractie Naam> <Zone Naam> - hiermee verandert u de Status van de Attractie");
 					sender.sendMessage(ChatColor.GREEN + "/AttractieStatus list - laat een lijst zien van alle Attracties");
 					sender.sendMessage(ChatColor.GREEN + "-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- ");
-					return false;
+					return true;
 				}
 				
 				if (args[0].equalsIgnoreCase("add")) {
 					if (sender.hasPermission("attractiestatus.add")) {
 						if (args.length < 2) {
 							sender.sendMessage(Core.prefix + ChatColor.RED + "Het commando is fout! U moet dit invoeren: /AttractieStatus add <Attractie Naam> <Cords(X Y Z)>");
-							return false;
+							return true;
 						} else {
 							sender.sendMessage(Core.prefix + ChatColor.RED + "add");
-							return false;
+							return true;
 						}
 					} else {
 						sender.sendMessage(MsgUtil.NOPERM.toString());
-						return false;
+						return true;
 					}
 				}
 				
@@ -60,14 +60,14 @@ public class AttractieStatusCMD implements CommandExecutor {
 					if (sender.hasPermission("attractiestatus.remove")) {
 						if (args[1].equals(null)) {
 							sender.sendMessage(Core.prefix + ChatColor.RED + "Het commando is fout! U moet dit invoeren: /AttractieStatus remove <Attractie Naam>");
-							return false;
+							return true;
 						} else {
 							sender.sendMessage(Core.prefix + ChatColor.RED + "remove");
-							return false;
+							return true;
 						}
 					} else {
 						sender.sendMessage(MsgUtil.NOPERM.toString());
-						return false;
+						return true;
 					}
 				}
 				
@@ -75,14 +75,14 @@ public class AttractieStatusCMD implements CommandExecutor {
 					if (sender.hasPermission("attractiestatus.setstatus")) {
 						if (args.length < 2) {
 							sender.sendMessage(Core.prefix + ChatColor.RED + "Het commando is fout! U moet dit invoeren: /AttractieStatus setstatus <Attractie Naam> <Status>");
-							return false;
+							return true;
 						} else {
 							sender.sendMessage(Core.prefix + ChatColor.RED + "setstatus");
-							return false;
+							return true;
 						}
 					} else {
 						sender.sendMessage(MsgUtil.NOPERM.toString());
-						return false;
+						return true;
 					}
 				}
 				
@@ -92,7 +92,7 @@ public class AttractieStatusCMD implements CommandExecutor {
 							sender.sendMessage(Core.prefix + ChatColor.RED + "Het commando is fout! U moet dit invoeren: /AttractieStatus addzone <Zone Naam> <Item ID> <Cords(X Y Z)>");
 						} else {
 							sender.sendMessage(Core.prefix + ChatColor.RED + "addzone");
-							return false;
+							return true;
 						}
 					} else {
 						sender.sendMessage(MsgUtil.NOPERM.toString());
@@ -103,20 +103,20 @@ public class AttractieStatusCMD implements CommandExecutor {
 					if (sender.hasPermission("attractiestatus.setzone")) {
 						if (args.length < 2) {
 							sender.sendMessage(Core.prefix + ChatColor.RED + "Het commando is fout! U moet dit invoeren: /AttractieStatus setzone <Attractie Naam> <Zone Naam>");
-							return false;
+							return true;
 						} else {
 							sender.sendMessage(Core.prefix + ChatColor.RED + "setzone");
-							return false;
+							return true;
 						}
 					} else {
 						sender.sendMessage(MsgUtil.NOPERM.getMessage());
-						return false;
+						return true;
 					}
 				}
 				
 				if (args[0].equalsIgnoreCase("list")) {
 					sender.sendMessage(Core.prefix + ChatColor.RED + "list");
-					return false;
+					return true;
 				}
 			}
 		} else {
@@ -129,8 +129,8 @@ public class AttractieStatusCMD implements CommandExecutor {
 			sender.sendMessage(ChatColor.GREEN + "/AttractieStatus setzone <Attractie Naam> <Zone Naam> - hiermee verandert u de Status van de Attractie");
 			sender.sendMessage(ChatColor.GREEN + "/AttractieStatus list - laat een lijst zien van alle Attracties");
 			sender.sendMessage(ChatColor.GREEN + "-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- ");
-			return false;
+			return true;
 		}
-		return false;
+		return true;
 	}
 }
