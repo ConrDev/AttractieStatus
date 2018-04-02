@@ -21,16 +21,14 @@ public class AttractiesCMD implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!(sender instanceof Player)) {
 			sender.sendMessage(MsgUtil.NOTPLR.getMessage());
-			return true;
+			return false;
 		}
 		
 		Player player = (Player) sender;
-		if (command.getName().equalsIgnoreCase("attracties")) {
-				if (sender.hasPermission("attractiestatus.attracties")) {
-					Menus.zonesMenu(player);
-					return true;
-			}
+		if (sender.hasPermission("attractiestatus.attracties")) {
+			Menus.zonesMenu(player);
+			return false;
 		}
-	return true;
+			return false;
 	}
 }

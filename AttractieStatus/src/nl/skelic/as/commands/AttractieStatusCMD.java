@@ -22,115 +22,112 @@ public class AttractieStatusCMD implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!(sender instanceof Player)) {
 			sender.sendMessage(MsgUtil.NOTPLR.getMessage());
-			return true;
+			return false;
 		}
 		
-		if (command.getName().equalsIgnoreCase("attractiestatus")) {
-			if (args.length != 0) {
-				
-				if (args[0].equalsIgnoreCase("help")) {
-					sender.sendMessage(ChatColor.GREEN + "-_-_-_-_-_- AttractieStatus -_-_-_-_- ");
-					sender.sendMessage(ChatColor.GREEN + "/AttractieStatus help - laat u alle commandos zien van AttractieStatus");
-					sender.sendMessage(ChatColor.GREEN + "/AttractieStatus add <Attractie Naam> <Cords(X Y Z)> - voeg een Attractie met de status toe aan de lijst");
-					sender.sendMessage(ChatColor.GREEN + "/AttractieStatus remove <Attractie Naam> - verwijder een Attractie van de lijst");
-					sender.sendMessage(ChatColor.GREEN + "/AttractieStatus setstatus <Attractie Naam> <Status> - verander de Status van de Attractie");
-					sender.sendMessage(ChatColor.GREEN + "/AttractieStatus addzone <Zone Naam> <Item ID> <Cords(X Y Z)> - hiermee verandert u de Status van de Attractie");
-					sender.sendMessage(ChatColor.GREEN + "/AttractieStatus setzone <Attractie Naam> <Zone Naam> - hiermee verandert u de Status van de Attractie");
-					sender.sendMessage(ChatColor.GREEN + "/AttractieStatus list - laat een lijst zien van alle Attracties");
-					sender.sendMessage(ChatColor.GREEN + "-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- ");
-					return true;
-				}
-				
-				if (args[0].equalsIgnoreCase("add")) {
-					if (sender.hasPermission("attractiestatus.add")) {
-						if (args.length < 2) {
-							sender.sendMessage(Core.prefix + ChatColor.RED + "Het commando is fout! U moet dit invoeren: /AttractieStatus add <Attractie Naam> <Cords(X Y Z)>");
-							return true;
-						} else {
-							sender.sendMessage(Core.prefix + ChatColor.RED + "add");
-							return true;
-						}
-					} else {
-						sender.sendMessage(MsgUtil.NOPERM.toString());
-						return true;
-					}
-				}
-				
-				if (args[0].equalsIgnoreCase("remove")) {
-					if (sender.hasPermission("attractiestatus.remove")) {
-						if (args[1].equals(null)) {
-							sender.sendMessage(Core.prefix + ChatColor.RED + "Het commando is fout! U moet dit invoeren: /AttractieStatus remove <Attractie Naam>");
-							return true;
-						} else {
-							sender.sendMessage(Core.prefix + ChatColor.RED + "remove");
-							return true;
-						}
-					} else {
-						sender.sendMessage(MsgUtil.NOPERM.toString());
-						return true;
-					}
-				}
-				
-				if (args[0].equalsIgnoreCase("setstatus")) {
-					if (sender.hasPermission("attractiestatus.setstatus")) {
-						if (args.length < 2) {
-							sender.sendMessage(Core.prefix + ChatColor.RED + "Het commando is fout! U moet dit invoeren: /AttractieStatus setstatus <Attractie Naam> <Status>");
-							return true;
-						} else {
-							sender.sendMessage(Core.prefix + ChatColor.RED + "setstatus");
-							return true;
-						}
-					} else {
-						sender.sendMessage(MsgUtil.NOPERM.toString());
-						return true;
-					}
-				}
-				
-				if (args[0].equalsIgnoreCase("addzone")) {
-					if (sender.hasPermission("attractiestatus.addzone")) {
-						if (args.length < 3) {
-							sender.sendMessage(Core.prefix + ChatColor.RED + "Het commando is fout! U moet dit invoeren: /AttractieStatus addzone <Zone Naam> <Item ID> <Cords(X Y Z)>");
-						} else {
-							sender.sendMessage(Core.prefix + ChatColor.RED + "addzone");
-							return true;
-						}
-					} else {
-						sender.sendMessage(MsgUtil.NOPERM.toString());
-					}
-				}
-				
-				if (args[0].equalsIgnoreCase("setzone")) {
-					if (sender.hasPermission("attractiestatus.setzone")) {
-						if (args.length < 2) {
-							sender.sendMessage(Core.prefix + ChatColor.RED + "Het commando is fout! U moet dit invoeren: /AttractieStatus setzone <Attractie Naam> <Zone Naam>");
-							return true;
-						} else {
-							sender.sendMessage(Core.prefix + ChatColor.RED + "setzone");
-							return true;
-						}
-					} else {
-						sender.sendMessage(MsgUtil.NOPERM.getMessage());
-						return true;
-					}
-				}
-				
-				if (args[0].equalsIgnoreCase("list")) {
-					sender.sendMessage(Core.prefix + ChatColor.RED + "list");
-					return true;
-				}
-			}
-		} else {
-			sender.sendMessage(ChatColor.GREEN + "-_-_-_-_-_- AttractieStatus -_-_-_-_- ");
+		if (args.length < 1) {
+			sender.sendMessage(ChatColor.GREEN + "-========- AttractieStatus -========- ");
 			sender.sendMessage(ChatColor.GREEN + "/AttractieStatus help - laat u alle commandos zien van AttractieStatus");
 			sender.sendMessage(ChatColor.GREEN + "/AttractieStatus add <Attractie Naam> <Cords(X Y Z)> - voeg een Attractie met de status toe aan de lijst");
 			sender.sendMessage(ChatColor.GREEN + "/AttractieStatus remove <Attractie Naam> - verwijder een Attractie van de lijst");
 			sender.sendMessage(ChatColor.GREEN + "/AttractieStatus setstatus <Attractie Naam> <Status> - verander de Status van de Attractie");
-			sender.sendMessage(ChatColor.GREEN + "/AttractieStatus addzone <Zone Naam> <Item ID> - hiermee verandert u de Status van de Attractie");
+			sender.sendMessage(ChatColor.GREEN + "/AttractieStatus addzone <Zone Naam> <Item ID> <Cords(X Y Z)> - hiermee verandert u de Status van de Attractie");
 			sender.sendMessage(ChatColor.GREEN + "/AttractieStatus setzone <Attractie Naam> <Zone Naam> - hiermee verandert u de Status van de Attractie");
 			sender.sendMessage(ChatColor.GREEN + "/AttractieStatus list - laat een lijst zien van alle Attracties");
-			sender.sendMessage(ChatColor.GREEN + "-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- ");
-			return true;
+			sender.sendMessage(ChatColor.GREEN + "-===================================- ");
+			return false;
+		} else {
+			if (args[0].equalsIgnoreCase("help")) {
+				sender.sendMessage(ChatColor.GREEN + "-========- AttractieStatus -========- ");
+				sender.sendMessage(ChatColor.GREEN + "/AttractieStatus help - laat u alle commandos zien van AttractieStatus");
+				sender.sendMessage(ChatColor.GREEN + "/AttractieStatus add <Attractie Naam> <Cords(X Y Z)> - voeg een Attractie met de status toe aan de lijst");
+				sender.sendMessage(ChatColor.GREEN + "/AttractieStatus remove <Attractie Naam> - verwijder een Attractie van de lijst");
+				sender.sendMessage(ChatColor.GREEN + "/AttractieStatus setstatus <Attractie Naam> <Status> - verander de Status van de Attractie");
+				sender.sendMessage(ChatColor.GREEN + "/AttractieStatus addzone <Zone Naam> <Item ID> <Cords(X Y Z)> - hiermee verandert u de Status van de Attractie");
+				sender.sendMessage(ChatColor.GREEN + "/AttractieStatus setzone <Attractie Naam> <Zone Naam> - hiermee verandert u de Status van de Attractie");
+				sender.sendMessage(ChatColor.GREEN + "/AttractieStatus list - laat een lijst zien van alle Attracties");
+				sender.sendMessage(ChatColor.GREEN + "-===================================- ");
+				return false;
+			}
+				
+			if (args[0].equalsIgnoreCase("add")) {
+				if (sender.hasPermission("attractiestatus.add")) {
+					if (args.length < 2) {
+						sender.sendMessage(Core.prefix + ChatColor.RED + "Het commando is fout! U moet dit invoeren: /AttractieStatus add <Attractie Naam> <Cords(X Y Z)>");
+						return false;
+					} else {
+						sender.sendMessage(Core.prefix + ChatColor.RED + "add");
+						return false;
+					}
+				} else {
+					sender.sendMessage(MsgUtil.NOPERM.toString());
+					return false;
+				}
+			}
+				
+			if (args[0].equalsIgnoreCase("remove")) {
+				if (sender.hasPermission("attractiestatus.remove")) {
+					if (args.length > 1) {
+						sender.sendMessage(Core.prefix + ChatColor.RED + "remove");
+						return false;
+					} else {
+						sender.sendMessage(Core.prefix + ChatColor.RED + "Het commando is fout! U moet dit invoeren: /AttractieStatus remove <Attractie Naam>");
+						return false;
+					}
+				} else {
+					sender.sendMessage(MsgUtil.NOPERM.toString());
+					return false;
+				}
+			}
+				
+			if (args[0].equalsIgnoreCase("setstatus")) {
+				if (sender.hasPermission("attractiestatus.setstatus")) {
+					if (args.length < 2) {
+						sender.sendMessage(Core.prefix + ChatColor.RED + "Het commando is fout! U moet dit invoeren: /AttractieStatus setstatus <Attractie Naam> <Status>");
+						return false;
+					} else {
+						sender.sendMessage(Core.prefix + ChatColor.RED + "setstatus");
+						return false;
+					}
+				} else {
+					sender.sendMessage(MsgUtil.NOPERM.toString());
+					return false;
+				}
+			}
+			
+			if (args[0].equalsIgnoreCase("addzone")) {
+				if (sender.hasPermission("attractiestatus.addzone")) {
+					if (args.length < 3) {
+						sender.sendMessage(Core.prefix + ChatColor.RED + "Het commando is fout! U moet dit invoeren: /AttractieStatus addzone <Zone Naam> <Item ID> <Cords(X Y Z)>");
+					} else {
+						sender.sendMessage(Core.prefix + ChatColor.RED + "addzone");
+						return false;
+					}
+				} else {
+					sender.sendMessage(MsgUtil.NOPERM.toString());
+				}
+			}
+			
+			if (args[0].equalsIgnoreCase("setzone")) {
+				if (sender.hasPermission("attractiestatus.setzone")) {
+					if (args.length < 2) {
+						sender.sendMessage(Core.prefix + ChatColor.RED + "Het commando is fout! U moet dit invoeren: /AttractieStatus setzone <Attractie Naam> <Zone Naam>");
+						return false;
+					} else {
+						sender.sendMessage(Core.prefix + ChatColor.RED + "setzone");
+						return false;
+					}
+				} else {
+					sender.sendMessage(MsgUtil.NOPERM.getMessage());
+					return false;
+				}
+			}
+			
+			if (args[0].equalsIgnoreCase("list")) {
+				sender.sendMessage(Core.prefix + ChatColor.RED + "list");
+				return false;
+			}
 		}
-		return true;
+		return false;
 	}
 }

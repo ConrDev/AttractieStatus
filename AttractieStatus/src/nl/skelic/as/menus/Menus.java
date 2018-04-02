@@ -7,6 +7,6 @@ import org.bukkit.inventory.Inventory;
 public class Menus {
 	
 	public static void zonesMenu(Player player) {
-		Inventory inv = Bukkit.createInventory(null, 25, "§lZones");
+		Inventory inv = Bukkit.createInventory(null, 26, "§lZones");
 	}
 }

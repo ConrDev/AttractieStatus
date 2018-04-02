@@ -34,7 +34,7 @@ public class Core extends JavaPlugin {
 		
 		//Loading Commands
 		getCommand("attractiestatus").setExecutor(new AttractieStatusCMD(this));
-		getCommand("attractiestatus").setExecutor(new AttractiesCMD(this));
+		getCommand("attracties").setExecutor(new AttractiesCMD(this));
 		
 		//Finished Message
 		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.DARK_BLUE + "------{AttractieStatus Plugin}-----");
