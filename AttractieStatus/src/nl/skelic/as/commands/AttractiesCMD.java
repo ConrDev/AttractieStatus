@@ -21,18 +21,16 @@ private Core plugin;
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!(sender instanceof Player)) {
 			sender.sendMessage(MsgUtil.NOTPLR.getMessage());
-			return true;
+			return false;
 		}
 		
 		Player player = (Player) sender;
 		if (command.getName().equalsIgnoreCase("attracties")) {
-			if (args.length != 0) {
 				if (sender.hasPermission("attractiestatus.attracties")) {
 					Menus.zonesMenu(player);
-					return true;
-				}
+					return false;
 			}
 		}
-		return true;
+	return false;
 	}
 }
