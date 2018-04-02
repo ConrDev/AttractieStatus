@@ -6,9 +6,9 @@ import nl.skelic.as.Core;
 
 public enum MsgUtil {
 	
-	NOPERM(Core.prefix + ChatColor.RED + "Sorry you don't have permissions to preform that command!"),
-	NOTPLR(Core.prefix + ChatColor.RED + "This command can't be used in the console!"),
-	CMDNF(Core.prefix + ChatColor.RED + "Command not found!");
+	NOPERM(Core.prefix + ChatColor.RED + "Sorry u hebt geen permissie om dit commando uit te voeren!"),
+	NOTPLR(Core.prefix + ChatColor.RED + "Dit commando kan niet gebruikt worden in de Console!"),
+	CMDNF(Core.prefix + ChatColor.RED + "Commando niet gevonden!");
 	
 	private String message;
 	
