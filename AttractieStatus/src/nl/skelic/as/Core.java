@@ -16,7 +16,7 @@ public class Core extends JavaPlugin {
 	private static Core plugin;
 	private Util util;
 	
-	public static final String prefix = (ChatColor.AQUA + "[GHG] " + ChatColor.RESET);
+	public static final String prefix = (ChatColor.GOLD + "[AS] " + ChatColor.RESET);
 	
 	@Override
 	public void onEnable() {
@@ -37,21 +37,21 @@ public class Core extends JavaPlugin {
 		getCommand("attracties").setExecutor(new AttractiesCMD(this));
 		
 		//Finished Message
-		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.DARK_BLUE + "------{AttractieStatus Plugin}-----");
-		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.DARK_BLUE + "|" + ChatColor.BLUE + "       Created by: SkelicStylz   " + ChatColor.DARK_BLUE + "|");
-		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.DARK_BLUE + "|" + ChatColor.BLUE + "           Version: v" + getDescription().getVersion() + "         " + ChatColor.DARK_BLUE + "|");
-		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.DARK_BLUE + "|" + ChatColor.BLUE + "      Plugin Status:  Enabled    " + ChatColor.DARK_BLUE + "|");
-		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.DARK_BLUE + "-----------------------------------");
+		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "------{AttractieStatus Plugin}-----");
+		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "|" + ChatColor.YELLOW + "       Created by: SkelicStylz   " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "|" + ChatColor.YELLOW + "           Version: v" + getDescription().getVersion() + "         " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "|" + ChatColor.YELLOW + "      Plugin Status:  Enabled    " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "-----------------------------------");
 		//loadConfiguration();
 	}
 	
 	@Override
 	public void onDisable() {
-		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.DARK_BLUE + "------{AttractieStatus Plugin}-----");
-		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.DARK_BLUE + "|" + ChatColor.BLUE + "       Created by: SkelicStylz   " + ChatColor.DARK_BLUE + "|");
-		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.DARK_BLUE + "|" + ChatColor.BLUE + "           Version: v" + getDescription().getVersion() + "         " + ChatColor.DARK_BLUE + "|");
-		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.DARK_BLUE + "|" + ChatColor.BLUE + "      Plugin Status: Disabled    " + ChatColor.DARK_BLUE + "|");
-		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.DARK_BLUE + "-----------------------------------");
+		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "------{AttractieStatus Plugin}-----");
+		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "|" + ChatColor.YELLOW + "       Created by: SkelicStylz   " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "|" + ChatColor.YELLOW + "           Version: v" + getDescription().getVersion() + "         " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "|" + ChatColor.YELLOW + "      Plugin Status: Disabled    " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "-----------------------------------");
 	}
 	
 	public static Core getInstance() {
