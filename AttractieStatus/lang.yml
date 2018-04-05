@@ -1,0 +1,5 @@
+# Use & for color codes.
+# %p is where the player name will get inserted.
+prefix: "&6[AS] "
+player-only: "&cDit commando kan niet gebruikt worden in de Console!"
+no-permissions: "&cSorry u hebt geen permissie om dit commando uit te voeren!"

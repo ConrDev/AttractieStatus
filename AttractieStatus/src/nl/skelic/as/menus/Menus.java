@@ -65,7 +65,7 @@ public class Menus {
 			return;
         }*/
 		
-		BukkitRunnable runnable = new BukkitRunnable() {
+		/*BukkitRunnable runnable = new BukkitRunnable() {
 			@Override
 	        public void run() {
 				for(int i = 0; i < inv.getContents().length; i++) {
@@ -85,7 +85,7 @@ public class Menus {
 	           	}
 	       };
 	     
-	       Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, runnable, 0l, 10l); //every 1/2 second change.
+	       Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, runnable, 0l, 10l);*/
 		
 	       player.openInventory(inv);
 	}
