@@ -12,4 +12,9 @@ commands:
   attracties:
     description: Dit opent het Attracties Menu.
     permission: attractiestatus.attracties
+    aliases: [att]
+    permission-message: Sorry je hebt geen permissie om dit comand uit te voeren!
+  zones:
+    description: Dit opent het Zones Menu.
+    permission: attractiestatus.zones
     permission-message: Sorry je hebt geen permissie om dit comand uit te voeren!

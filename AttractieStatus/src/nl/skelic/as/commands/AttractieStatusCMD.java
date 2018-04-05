@@ -38,20 +38,21 @@ public class AttractieStatusCMD implements CommandExecutor {
 		}
 		
 		if (args.length < 1) {
-			sender.sendMessage(ChatColor.YELLOW + "-==========- " + ChatColor.GOLD + "AttractieStatus" + ChatColor.YELLOW + " -==========- ");
+			sender.sendMessage(ChatColor.YELLOW + "-==========- " + ChatColor.GOLD + "AttractieStatus" + ChatColor.YELLOW + " -==========-");
 			sender.sendMessage(ChatColor.GOLD + "/AttractieStatus help" + ChatColor.GRAY + " - laat u alle commandos zien van AttractieStatus");
 			sender.sendMessage(ChatColor.GOLD + "/AttractieStatus add <Attractie Naam> <Cords(X Y Z)>" + ChatColor.GRAY + " - voeg een Attractie met de status toe aan de lijst");
 			sender.sendMessage(ChatColor.GOLD + "/AttractieStatus remove <Attractie Naam>" + ChatColor.GRAY + " - verwijder een Attractie van de lijst");
 			sender.sendMessage(ChatColor.GOLD + "/AttractieStatus setstatus <Attractie Naam> <Status>" + ChatColor.GRAY + " - verander de Status van de Attractie");
 			sender.sendMessage(ChatColor.GOLD + "/AttractieStatus addzone <Zone Naam> <Item ID> <Cords(X Y Z)>" + ChatColor.GRAY + " - hiermee verandert u de Status van de Attractie");
 			sender.sendMessage(ChatColor.GOLD + "/AttractieStatus setzone <Attractie Naam> <Zone Naam>" + ChatColor.GRAY + " - hiermee verandert u de Status van de Attractie");
+			sender.sendMessage(ChatColor.GOLD + "/AttractieStatus removezone <Zone Naam>" + ChatColor.GRAY + " - verwijder een Zone van de lijst");
 			sender.sendMessage(ChatColor.GOLD + "/AttractieStatus tp <Attractie Naam>" + ChatColor.GRAY + " - tp naar de Attractie!");
 			sender.sendMessage(ChatColor.GOLD + "/AttractieStatus list" + ChatColor.GRAY + " - laat een lijst zien van alle Attracties");
-			sender.sendMessage(ChatColor.YELLOW + "-===================================- ");
+			sender.sendMessage(ChatColor.YELLOW + "-===================================-");
 			return false;
 		} else {
 			if (args[0].equalsIgnoreCase("help")) {
-				sender.sendMessage(ChatColor.YELLOW + "-==========- " + ChatColor.GOLD + "AttractieStatus" + ChatColor.YELLOW + " -==========- ");
+				sender.sendMessage(ChatColor.YELLOW + "-==========- " + ChatColor.GOLD + "AttractieStatus" + ChatColor.YELLOW + " -==========-");
 				sender.sendMessage(ChatColor.GOLD + "/AttractieStatus help" + ChatColor.GRAY + " - laat u alle commandos zien van AttractieStatus");
 				sender.sendMessage(ChatColor.GOLD + "/AttractieStatus add <Attractie Naam> <Cords(X Y Z)>" + ChatColor.GRAY + " - voeg een Attractie met de status toe aan de lijst");
 				sender.sendMessage(ChatColor.GOLD + "/AttractieStatus remove <Attractie Naam>" + ChatColor.GRAY + " - verwijder een Attractie van de lijst");
@@ -61,7 +62,7 @@ public class AttractieStatusCMD implements CommandExecutor {
 				sender.sendMessage(ChatColor.GOLD + "/AttractieStatus removezone <Zone Naam>" + ChatColor.GRAY + " - verwijder een Zone van de lijst");
 				sender.sendMessage(ChatColor.GOLD + "/AttractieStatus tp <Attractie Naam>" + ChatColor.GRAY + " - tp naar de Attractie!");
 				sender.sendMessage(ChatColor.GOLD + "/AttractieStatus list" + ChatColor.GRAY + " - laat een lijst zien van alle Attracties");
-				sender.sendMessage(ChatColor.YELLOW + "-===================================- ");
+				sender.sendMessage(ChatColor.YELLOW + "-===================================-");
 				return false;
 			}
 			
@@ -300,19 +301,19 @@ public class AttractieStatusCMD implements CommandExecutor {
 			
 			if (args[0].equalsIgnoreCase("list")) {
 				if (aList.length != 0) {
-					sender.sendMessage(ChatColor.YELLOW + "-==========- " + ChatColor.GOLD + "Attractie Lijst" + ChatColor.YELLOW + " -==========- ");
+					sender.sendMessage(ChatColor.YELLOW + "-==========- " + ChatColor.GOLD + "Attractie Lijst" + ChatColor.YELLOW + " -==========-");
 					for (int i = 0; i < aList.length; i++) {
 						if (aList[i].isFile()) {
 							sender.sendMessage(/*ChatColor.YELLOW + "" + (i++ < aList[i].length()) + ". " +*/ ChatColor.GOLD + aList[i].getName().replace(".yml", "") + " " + ChatColor.GRAY + "- " + "staat in Zone ");
 						}
 					}
-					sender.sendMessage(ChatColor.YELLOW + "-===================================- ");
+					sender.sendMessage(ChatColor.YELLOW + "-===================================-");
 					return true;
 				} else {
-					sender.sendMessage(ChatColor.YELLOW + "-==========- " + ChatColor.GOLD + "Attractie Lijst" + ChatColor.YELLOW + " -==========- ");
+					sender.sendMessage(ChatColor.YELLOW + "-==========- " + ChatColor.GOLD + "Attractie Lijst" + ChatColor.YELLOW + " -==========-");
 					sender.sendMessage(ChatColor.GOLD + "Er zijn geen Attracties gevonden!");
 					sender.sendMessage(ChatColor.GRAY + "Misschien moet u er een paar maken ;)");
-					sender.sendMessage(ChatColor.YELLOW + "-===================================- ");
+					sender.sendMessage(ChatColor.YELLOW + "-===================================-");
 					return false;
 				}
 			}

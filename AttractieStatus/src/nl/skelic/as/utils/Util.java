@@ -8,7 +8,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import nl.skelic.as.Core;
 
-@SuppressWarnings("unused")
 public class Util {
 	
 	private Core plugin;

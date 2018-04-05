@@ -9,11 +9,11 @@ import nl.skelic.as.Core;
 import nl.skelic.as.menus.Menus;
 import nl.skelic.as.utils.MsgUtil;
 
-public class AttractiesCMD implements CommandExecutor {
+public class ZonesCMD implements CommandExecutor {
 	
 	private Core plugin;
 	
-	public AttractiesCMD(Core plugin) {
+	public ZonesCMD(Core plugin) {
 		this.plugin = plugin;
 	}
 	
@@ -23,10 +23,10 @@ public class AttractiesCMD implements CommandExecutor {
 			sender.sendMessage(MsgUtil.NOTPLR.getMessage());
 			return false;
 		}
-
+		
 		Player player = (Player) sender;
 		if (sender.hasPermission("attractiestatus.attracties")) {
-			Menus.attractiesMenu(player);
+			Menus.zonesMenu(player);
 			return false;
 		}
 	return false;

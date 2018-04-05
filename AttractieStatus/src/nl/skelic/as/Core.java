@@ -9,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import nl.skelic.as.commands.AttractieStatusCMD;
 import nl.skelic.as.commands.AttractiesCMD;
+import nl.skelic.as.commands.ZonesCMD;
 import nl.skelic.as.utils.Util;
 
 public class Core extends JavaPlugin {
@@ -35,6 +36,7 @@ public class Core extends JavaPlugin {
 		//Loading Commands
 		getCommand("attractiestatus").setExecutor(new AttractieStatusCMD(this));
 		getCommand("attracties").setExecutor(new AttractiesCMD(this));
+		getCommand("zones").setExecutor(new ZonesCMD(this));
 		
 		//Finished Message
 		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "------{AttractieStatus Plugin}-----");
