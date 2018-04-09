@@ -3,14 +3,18 @@ package nl.skelic.as.utils;
 import java.io.File;
 import java.io.IOException;
 
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import nl.skelic.as.Core;
+import nl.skelic.as.config.Configs;
 
 public class Util {
 	
 	private Core plugin;
+	
+	public static final String prefix = (Configs.getConfigs().color(Configs.getConfigs().getConfig().get("Prefix") + " ") + ChatColor.RESET);
 	
 	public Util(Core pluginInstance) {
 		plugin = pluginInstance;

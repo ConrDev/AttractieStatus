@@ -2,10 +2,10 @@ package nl.skelic.as;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.craftbukkit.libs.jline.internal.Log;
 import org.bukkit.plugin.PluginManager;
@@ -14,8 +14,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import nl.skelic.as.commands.AttractieStatusCMD;
 import nl.skelic.as.commands.AttractiesCMD;
 import nl.skelic.as.commands.ZonesCMD;
-import nl.skelic.as.config.LangConfig;
-import nl.skelic.as.config.Config;
+import nl.skelic.as.config.Configs;
 import nl.skelic.as.utils.Util;
 
 public class Core extends JavaPlugin {
@@ -25,131 +24,100 @@ public class Core extends JavaPlugin {
 	
 	public static YamlConfiguration Lang;
 	public static File Lang_File;
-	public static final String prefix = (Config.PREFIX.toString() + "" + ChatColor.RESET);
+	//public static final String prefix = (Util.prefix);
 	
 	@Override
 	public void onEnable() {
-		//Loading Configs
-		if(new File(getDataFolder(), "Attracties").mkdirs()) {
-			getLogger().info("Generated Attracties folder!");
-		}
+		// Loading Folders
+		if(new File(getDataFolder(), "Attracties").mkdirs()) { getLogger().info("Generated Attracties folder!"); }
 		
+		// Loading Settings
+		PluginManager pm = Bukkit.getServer().getPluginManager();
 		plugin = this;
+		
+		// Loading constructors
+		new Configs(this);
+		
+		// Loading Configs
+		loadConfig();
+		
+		// Loadin Util
 		util = new Util(this);
 		
-		//Loading Events
-		PluginManager pm = Bukkit.getServer().getPluginManager();
-		//pm.registerEvents(towersData = new TowersData(this), this);
-		
-		//Loading Commands
+		// Loading Commands
 		getCommand("attractiestatus").setExecutor(new AttractieStatusCMD(this));
 		getCommand("attracties").setExecutor(new AttractiesCMD(this));
 		getCommand("zones").setExecutor(new ZonesCMD(this));
 		
-		//loading lang.yml
-		/*if (Config.== "nl_NL") {*/
-			loadLangNL();
-		/*} else if (Config.LANG.toString() == "en_EN") {*/
-			//loadLangEN();
-		/*}*/
-		
-		//loading config
-		loadConfig();
-		
-		//Finished Message
-		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "------{AttractieStatus Plugin}-----");
-		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "|" + ChatColor.YELLOW + "       Created by: SkelicStylz   " + ChatColor.GOLD + "|");
-		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "|" + ChatColor.YELLOW + "           Version: v" + getDescription().getVersion() + "         " + ChatColor.GOLD + "|");
-		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "|" + ChatColor.YELLOW + "      Plugin Status:  Enabled    " + ChatColor.GOLD + "|");
-		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "-----------------------------------");
-		//loadConfiguration();
+		// Finished Message
+		Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.GOLD + "------{AttractieStatus Plugin}-----");
+		Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.GOLD + "|" + ChatColor.YELLOW + "       Created by: SkelicStylz   " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.GOLD + "|" + ChatColor.YELLOW + "           Version: v" + getDescription().getVersion() + "         " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.GOLD + "|" + ChatColor.YELLOW + "      Plugin Status:  Enabled    " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.GOLD + "-----------------------------------");
 	}
 	
 	@Override
 	public void onDisable() {
-		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "------{AttractieStatus Plugin}-----");
-		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "|" + ChatColor.YELLOW + "       Created by: SkelicStylz   " + ChatColor.GOLD + "|");
-		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "|" + ChatColor.YELLOW + "           Version: v" + getDescription().getVersion() + "         " + ChatColor.GOLD + "|");
-		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "|" + ChatColor.YELLOW + "      Plugin Status: Disabled    " + ChatColor.GOLD + "|");
-		Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GOLD + "-----------------------------------");
-	}
-	
-	public void loadLangNL() {
-		File lang = new File(getDataFolder() + File.separator + "Language" + File.separator, "nl_NL.yml");
-		if (!lang.exists()) {
-			try {
-				getDataFolder().mkdir();
-				lang.createNewFile();
-	            YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(lang);
-	            defConfig.save(lang);
-	            LangConfig.setFile(defConfig);
-			} catch (IOException e) {
-				e.printStackTrace();
-				//Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.RED + "Kon geen language bestand aan maken.");
-				//Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.RED + "Dit is een fatale fout. De Plugin is nu aan het uitschakelen!");
-				Log.error("[AS] Kon geen language bestand aan maken.");
-				Log.error("[AS] Dit is een fatale fout. De Plugin is nu aan het uitschakelen!");
-			this.setEnabled(false);
-			}
-		}
-				
-		YamlConfiguration conf = YamlConfiguration.loadConfiguration(lang);
-		for (LangConfig item : LangConfig.values()) {
-			if (conf.getString(item.getPath()) == null) {
-				conf.set(item.getPath(), item.getDefault());
-			}
-		}
-		
-		LangConfig.setFile(conf);
-		plugin.Lang = conf;
-		plugin.Lang_File = lang;
-		try {
-			conf.save(getLangFile());
-		} catch (IOException e) {
-			Log.warn("[AS] Kon niet lang.yml opslaan.");
-			Log.warn("[AS] Rapporteer deze fout aan SkelicStylz(coolboys100).");
-			e.printStackTrace();
-		}
-		
+		Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.GOLD + "------{AttractieStatus Plugin}-----");
+		Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.GOLD + "|" + ChatColor.YELLOW + "       Created by: SkelicStylz   " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.GOLD + "|" + ChatColor.YELLOW + "           Version: v" + getDescription().getVersion() + "         " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.GOLD + "|" + ChatColor.YELLOW + "      Plugin Status: Disabled    " + ChatColor.GOLD + "|");
+		Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.GOLD + "-----------------------------------");
+		//Configs.getConfigs().save();
 	}
 	
 	public void loadConfig() {
-		File config = new File(getDataFolder(), "config.yml");
-		if (!config.exists()) {
-			try {
-				getDataFolder().mkdir();
-				config.createNewFile();
-	            YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(config);
-	            defConfig.save(config);
-	            Config.setFile(defConfig);
-			} catch (IOException e) {
-				e.printStackTrace();
-				//Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.RED + "Kon geen language bestand aan maken.");
-				//Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.RED + "Dit is een fatale fout. De Plugin is nu aan het uitschakelen!");
-				Log.error("[AS] Kon geen language bestand aan maken.");
-				Log.error("[AS] Dit is een fatale fout. De Plugin is nu aan het uitschakelen!");
-			this.setEnabled(false);
-			}
-		}
-				
-		YamlConfiguration conf = YamlConfiguration.loadConfiguration(config);
-		for (Config item : Config.values()) {
-			if (conf.getString(item.getPath()) == null) {
-				conf.set(item.getPath(), item.getDefault());
-			}
-		}
+		FileConfiguration config = Configs.getConfigs().getConfig();
+		config.addDefault("Prefix", "&6[AS]");
+		config.addDefault("Language", "nl_NL");
 		
-		LangConfig.setFile(conf);
-		plugin.Lang = conf;
-		plugin.Lang_File = config;
-		try {
-			conf.save(getLangFile());
-		} catch (IOException e) {
-			Log.warn("[AS] Kon niet lang.yml opslaan.");
-			Log.warn("[AS] Rapporteer deze fout aan SkelicStylz(coolboys100).");
-			e.printStackTrace();
-		}
+		config.options().copyDefaults(true);
 		
+		//Languages list
+		FileConfiguration langNL = Configs.getConfigs().getLangNL();
+		langNL.addDefault("no-permissions", "&cSorry, u hebt geen permissie om dit commando uit te voeren!");
+		langNL.addDefault("player-only", "&cDit commando kan niet gebruikt worden in de Console!");
+		langNL.addDefault("command-not-found", "&cCommando niet gevonden!");
+		langNL.addDefault("as-help", "laat u alle commandos zien van AttractieStatus");
+		langNL.addDefault("as-add", "voeg een Attractie met de status toe aan de lijst");
+		langNL.addDefault("as-remove", "verwijder een Attractie van de lijst");
+		langNL.addDefault("as-setstatus", "verander de Status van een Attractie");
+		langNL.addDefault("as-addzone", "voeg een Zone toe aan de lijst");
+		langNL.addDefault("as-setzone", "verander de Zone van een Attractie");
+		langNL.addDefault("as-removezone", "verwijder een Zone van de lijst");
+		langNL.addDefault("as-tp", "tp naar een Attracties op een makkelijk manier!");
+		langNL.addDefault("as-list", "laat u een lijst zien van alle Attracties en Zones");
+		langNL.addDefault("as-msg1", "Er zijn geen Attracties gevonden!");
+		langNL.addDefault("as-msg2", "Misschien moet u er een paar maken ;)");
+		
+		langNL.options().copyDefaults(true);
+		
+		FileConfiguration langEN = Configs.getConfigs().getLangEN();
+		langEN.addDefault("no-permissions", "&cSorry, you don't have permission to use this command!");
+		langEN.addDefault("player-only", "&cThis command can not be used in the Console!");
+		langEN.addDefault("command-not-found", "&cCommand not found!");
+		langEN.addDefault("as-help", "let you show all the AttractieStatus commands");
+		langEN.addDefault("as-add", "add an Attraction with the status to the list");
+		langEN.addDefault("as-remove", "remove an Attraction from lijst");
+		langEN.addDefault("as-setstatus", "change the Status of an Attraction");
+		langEN.addDefault("as-addzone", "add a Zone to the list");
+		langEN.addDefault("as-setzone", "change the Zone of an Attraction");
+		langEN.addDefault("as-removezone", "remove a Zone from the list");
+		langEN.addDefault("as-tp", "tp to an Attraction simply!");
+		langEN.addDefault("as-list", "let you show a list of all the Attraction and Zones");
+		langEN.addDefault("as-msg1", "There are no Attractions found!");
+		langEN.addDefault("as-msg2", "Maybe you should make a few ;)");
+		
+		langEN.options().copyDefaults(true);
+		
+		//attracties list
+		FileConfiguration attracties = Configs.getConfigs().getAttracties();
+		
+		//zones list
+		FileConfiguration zones = Configs.getConfigs().getZones();
+		
+		Configs.getConfigs().save();
 	}
 	
 	/*public void loadLangEN() {

@@ -2,13 +2,12 @@ package nl.skelic.as.utils;
 
 import org.bukkit.ChatColor;
 
-import nl.skelic.as.Core;
-import nl.skelic.as.config.LangConfig;
+import nl.skelic.as.config.Configs;
 
 public enum MsgUtil {
-	NOPERM(Core.prefix + LangConfig.NOPERM.toString()),
-	NOTPLR(Core.prefix + LangConfig.NOTPLR.toString()),
-	CMDNF(Core.prefix + LangConfig.CMDNF.toString());
+	NOPERM(Util.prefix + Configs.getConfigs().color(Configs.getConfigs().getLangNL().getString("no-permissions"))),
+	NOTPLR(Util.prefix + Configs.getConfigs().color(Configs.getConfigs().getLangNL().getString("player-only"))),
+	CMDNF(Util.prefix + Configs.getConfigs().color(Configs.getConfigs().getLangNL().getString("command-not-found")));
 	
 	private String message;
 	
