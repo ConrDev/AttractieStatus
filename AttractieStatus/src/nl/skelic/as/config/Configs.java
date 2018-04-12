@@ -47,8 +47,8 @@ public class Configs {
 			config.save(configFile);
 			langNL.save(langNLFile);
 			langEN.save(langENFile);
-			attracties.save(attractiesFile);
-			zones.save(zonesFile);
+			//attracties.save(attractiesFile);
+			//zones.save(zonesFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

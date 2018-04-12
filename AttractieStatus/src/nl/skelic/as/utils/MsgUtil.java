@@ -9,6 +9,8 @@ public enum MsgUtil {
 	NOTPLR(Util.prefix + Configs.getConfigs().color(Configs.getConfigs().getLangNL().getString("player-only"))),
 	CMDNF(Util.prefix + Configs.getConfigs().color(Configs.getConfigs().getLangNL().getString("command-not-found")));
 	
+	private static MsgUtil msgU;
+	
 	private String message;
 	
 	MsgUtil(String message) {
@@ -19,7 +21,11 @@ public enum MsgUtil {
 		return message;
 	}
 	
-	public String colorMessage(String message) {
+	public String color(String message) {
 		return ChatColor.translateAlternateColorCodes('&', message);
+	}
+	
+	public static MsgUtil MsgU() {
+		return msgU;
 	}
 }

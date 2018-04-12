@@ -31,9 +31,21 @@ public class AttractieStatusCMD implements CommandExecutor {
 		util = plugin.getUtil();
 	}
 	
+    public Location parseLoc(Player player, String str){
+        String str2loc[]=str.split(",");
+        Location loc = new Location(player.getWorld(),0,0,0);
+        loc.setX(Double.parseDouble(str2loc[0]));
+        loc.setY(Double.parseDouble(str2loc[1]));
+        loc.setZ(Double.parseDouble(str2loc[2]));
+        return loc;
+    }
+	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		
+		if (!(sender instanceof Player)) {
+			sender.sendMessage(MsgUtil.NOTPLR.getMessage());
+			return false;
+		} else {
 		if (args.length < 1) {
 			sender.sendMessage(ChatColor.YELLOW + "-==========- " + ChatColor.GOLD + "AttractieStatus" + ChatColor.YELLOW + " -==========-");
 			if (Configs.getConfigs().getConfig().getString("Language").contains("nl_NL")) {
@@ -87,14 +99,10 @@ public class AttractieStatusCMD implements CommandExecutor {
 				return false;
 			}
 			
-			//attractieDataFile = new File(plugin.getDataFolder() + File.separator + "Attracties" + File.separator, args[1].toString() + ".yml");
-			//attractieDataConfig = YamlConfiguration.loadConfiguration(attractieDataFile);
-			//File zoneDataFile = new File(plugin.getDataFolder() + File.separator + "Zones" + File.separator, args[1].toString() + ".yml");
-			//FileConfiguration zoneDataConfig = YamlConfiguration.loadConfiguration(zoneDataFile);
-			if (!(sender instanceof Player)) {
-				sender.sendMessage(MsgUtil.NOTPLR.getMessage());
-				return false;
-			} else {
+			/*if (args[0].equalsIgnoreCase(null)) {
+				sender.sendMessage(Util.prefix + ChatColor.RED + MsgUtil.CMDNF.getMessage());
+			}*/
+			
 			Player player = (Player) sender;
 			Location loc = player.getLocation();
 			if (args[0].equalsIgnoreCase("add")) {
@@ -125,7 +133,7 @@ public class AttractieStatusCMD implements CommandExecutor {
 							attractieDataConfig.set("Status", "&cGesloten");
 							Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.GOLD + "Status variabel toevoegen aan " + args[1].toString());
 						}
-						if (!attractieDataConfig.contains("Cordinaten.X")) {
+						/*if (!attractieDataConfig.contains("Cordinaten.X")) {
 							attractieDataConfig.set("Cordinaten.X", loc.getX());
 							if (!attractieDataConfig.contains("Cordinaten.Y")) {
 								attractieDataConfig.set("Cordinaten.Y", loc.getY());
@@ -134,6 +142,10 @@ public class AttractieStatusCMD implements CommandExecutor {
 									Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.GOLD + " Cordinaten variabel toevoegen aan " + args[1].toString());
 								}
 							}
+						}*/
+						if (!attractieDataConfig.contains("Cordinaten")) {
+							attractieDataConfig.set("Cordinaten", loc.getX() + "," + loc.getY() + "," + loc.getZ());
+							Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.GOLD + " Cordinaten variabel toevoegen aan " + args[1].toString());
 						}
 						if (!attractieDataConfig.contains("Zone")) {
 							attractieDataConfig.set("Zone", "geen Zone gevonden");
@@ -220,8 +232,8 @@ public class AttractieStatusCMD implements CommandExecutor {
 						}
 						YamlConfiguration zoneDataConfig = YamlConfiguration.loadConfiguration(zoneDataFile);
 						Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.GOLD + "ZoneData laden voor " + args[1].toString());
-						if (!zoneDataConfig.contains("Naam")) {
-							zoneDataConfig.set("Naam", args[1].toString());
+						if (!zoneDataConfig.contains("Name")) {
+							zoneDataConfig.set("Name", args[1].toString());
 							Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.GOLD + "Naam variabel toevoegen aan " + args[1].toString());
 						}
 						
@@ -229,7 +241,7 @@ public class AttractieStatusCMD implements CommandExecutor {
 							zoneDataConfig.set("Icon", args[2].toString());
 							Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.GOLD + "Icon variabel toevoegen aan " + args[1].toString());
 						}
-						if (!zoneDataConfig.contains("Cordinaten.X")) {
+						/*if (!zoneDataConfig.contains("Cordinaten.X")) {
 							zoneDataConfig.set("Cordinaten.X", loc.getX());
 							if (!zoneDataConfig.contains("Cordinaten.Y")) {
 								zoneDataConfig.set("Cordinaten.Y", loc.getY());
@@ -238,6 +250,14 @@ public class AttractieStatusCMD implements CommandExecutor {
 									Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.GOLD + " Cordinaten variabel toevoegen aan " + args[1].toString());
 								}
 							}
+						}*/
+						if (!zoneDataConfig.contains("Cordinaten")) {
+							zoneDataConfig.set("Cordinaten", loc.getX() + "," + loc.getY() + "," + loc.getZ());
+							Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.GOLD + " Cordinaten variabel toevoegen aan " + args[1].toString());
+						}
+						if (!zoneDataConfig.contains("Attraties")) {
+							zoneDataConfig.set("Attracties", "Geen attracties gevonden");
+							Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.GOLD + "Icon variabel toevoegen aan " + args[1].toString());
 						}
 						util.saveFile(zoneDataConfig, zoneDataFile);
 						if (!zoneDataConfig.contains("Owner")) {
@@ -261,15 +281,27 @@ public class AttractieStatusCMD implements CommandExecutor {
 						return false;
 					} else {
 						attractieDataFile = new File(plugin.getDataFolder() + File.separator + "Attracties" + File.separator, args[1].toString() + ".yml");
+						File zoneDataFile = new File(plugin.getDataFolder() + File.separator + "Zones" + File.separator, args[2].toString() + ".yml");
 						if (!attractieDataFile.exists()) {
-							sender.sendMessage(Util.prefix + ChatColor.RED + args[1].toString() + " Bestaat niet!");
+							sender.sendMessage(Util.prefix + ChatColor.RED + "Attractie " + args[1].toString() + " Bestaat niet!");
 							return false;
 						} else {
-							attractieDataConfig = YamlConfiguration.loadConfiguration(attractieDataFile);
-							attractieDataConfig.set("Zone", args[2].toString());
-							sender.sendMessage(Util.prefix + ChatColor.GREEN + args[1].toString() + "'s Zone is verander naar " + args[2].toString());
-							util.saveFile(attractieDataConfig, attractieDataFile);
-							return false;
+							if (!zoneDataFile.exists()) {
+								sender.sendMessage(Util.prefix + ChatColor.RED + "Zone " + args[2].toString() + " Bestaat niet!");
+								return false;
+						} else {
+								attractieDataConfig = YamlConfiguration.loadConfiguration(attractieDataFile);
+								attractieDataConfig.set("Zone", args[2].toString());
+								util.saveFile(attractieDataConfig, attractieDataFile);
+							
+								YamlConfiguration zoneDataConfig = YamlConfiguration.loadConfiguration(zoneDataFile);
+								//zoneDataConfig.set("Attracties." + args[2].toString() + ".Cordinaten", attractieDataConfig.get("Cordinaten.X") + "," + attractieDataConfig.get("Cordinaten.Y") + "," + attractieDataConfig.get("Cordinaten.Z"));
+								zoneDataConfig.set("Attracties." + args[1].toString() + ".Cordinaten", attractieDataConfig.getString("Cordinaten"));
+								util.saveFile(zoneDataConfig, zoneDataFile);
+							
+								sender.sendMessage(Util.prefix + ChatColor.GREEN + args[1].toString() + "'s Zone is verander naar " + args[2].toString());
+								return false;
+							}
 						}
 					}
 				} else {
@@ -313,7 +345,9 @@ public class AttractieStatusCMD implements CommandExecutor {
 							return false;
 						} else {
 							attractieDataConfig = YamlConfiguration.loadConfiguration(attractieDataFile);
-							player.teleport(new Location(player.getWorld(), attractieDataConfig.getDouble("Cordinaten.X"), attractieDataConfig.getDouble("Cordinaten.Y"), attractieDataConfig.getDouble("Cordinaten.Z")));
+							//player.teleport(new Location(player.getWorld(), attractieDataConfig.getDouble("Cordinaten"), attractieDataConfig.getDouble("Cordinaten.Y"), attractieDataConfig.getDouble("Cordinaten.Z")));
+							player.teleport(parseLoc(player, attractieDataConfig.getString("Cordinaten")));
+							//parseLoc(player, attractieDataConfig.getString("Cordinaten"));
 							sender.sendMessage(Util.prefix + ChatColor.YELLOW + "Succesvol geteleporteerd naar " + args[1].toString() + "!");
 							return false;
 						}
@@ -321,29 +355,40 @@ public class AttractieStatusCMD implements CommandExecutor {
 				}
 			}
 			
-			}
-			
 			File aFolder = new File(plugin.getDataFolder() + File.separator + "Attracties" + File.separator);
 			File[] aList = aFolder.listFiles();
 			
 			if (args[0].equalsIgnoreCase("list")) {
 				if (aList.length != 0) {
-					sender.sendMessage(ChatColor.YELLOW + "-==========- " + ChatColor.GOLD + "Attractie Lijst" + ChatColor.YELLOW + " -==========-");
-					for (int i = 0; i < aList.length; i++) {
-						if (aList[i].isFile()) {
-							sender.sendMessage(/*ChatColor.YELLOW + "" + (i++ < aList[i].length()) + ". " +*/ ChatColor.GOLD + aList[i].getName().replace(".yml", "") + " " + ChatColor.GRAY + "- " + "staat in Zone ");
+					if (Configs.getConfigs().getConfig().getString("Language").contains("nl_NL")) {
+						sender.sendMessage(ChatColor.YELLOW + "-==========- " + ChatColor.GOLD + "Attractie Lijst" + ChatColor.YELLOW + " -==========-");
+						for (int i = 0; i < aList.length; i++) {
+							if (aList[i].isFile()) {
+								YamlConfiguration aConfig = YamlConfiguration.loadConfiguration(aList[i]);
+								sender.sendMessage(/*ChatColor.YELLOW + "" + (i++ < aList[i].length()) + ". " +*/ ChatColor.GOLD + aList[i].getName().replace(".yml", "") + " " + ChatColor.GRAY + "- staat in Zone: " + aConfig.getString("Zone"));
+							}
 						}
+						sender.sendMessage(ChatColor.YELLOW + "-===================================-");
+						return true;
+					} else if (Configs.getConfigs().getConfig().getString("Language").contains("en_US")) {
+						sender.sendMessage(ChatColor.YELLOW + "-==========- " + ChatColor.GOLD + "Attraction Lijst" + ChatColor.YELLOW + " -==========-");
+						for (int i = 0; i < aList.length; i++) {
+							if (aList[i].isFile()) {
+								YamlConfiguration aConfig = YamlConfiguration.loadConfiguration(aList[i]);
+								sender.sendMessage(/*ChatColor.YELLOW + "" + (i++ < aList[i].length()) + ". " +*/ ChatColor.GOLD + aList[i].getName().replace(".yml", "") + " " + ChatColor.GRAY + "- is standing in Zone: " + aConfig.getString("Zone"));
+							}
+						}
+						sender.sendMessage(ChatColor.YELLOW + "-===================================-");
+						return true;
 					}
-					sender.sendMessage(ChatColor.YELLOW + "-===================================-");
-					return true;
 				} else {
-					if (Configs.getConfigs().getConfig().getString("Language") == "nl_NL") {
+					if (Configs.getConfigs().getConfig().getString("Language").contains("nl_NL")) {
 						sender.sendMessage(ChatColor.YELLOW + "-==========- " + ChatColor.GOLD + "Attractie Lijst" + ChatColor.YELLOW + " -==========-");
 						sender.sendMessage(ChatColor.GOLD + Configs.getConfigs().color(Configs.getConfigs().getLangNL().getString("as-msg1")));
 						sender.sendMessage(ChatColor.GRAY + Configs.getConfigs().color(Configs.getConfigs().getLangNL().getString("as-msg2")));
 						sender.sendMessage(ChatColor.YELLOW + "-===================================-");
 						return false;
-					} else if (Configs.getConfigs().getConfig().getString("Language") == "en_US") {
+					} else if (Configs.getConfigs().getConfig().getString("Language").contains("en_US")) {
 						sender.sendMessage(ChatColor.YELLOW + "-==========- " + ChatColor.GOLD + "Attraction List" + ChatColor.YELLOW + " -==========-");
 						sender.sendMessage(ChatColor.GOLD + Configs.getConfigs().color(Configs.getConfigs().getLangEN().getString("as-msg1")));
 						sender.sendMessage(ChatColor.GRAY + Configs.getConfigs().color(Configs.getConfigs().getLangEN().getString("as-msg2")));
@@ -353,10 +398,11 @@ public class AttractieStatusCMD implements CommandExecutor {
 				}
 			}
 			
-			if (args[0].equals(null)) {
-				sender.sendMessage(Util.prefix + ChatColor.RED + "Oeps! Dit commando bestaat niet. type /AttractieStatus of /AttractieStatus help om alle commandos te zien!");
+			if (args[0].equalsIgnoreCase("reload")) {
+				
 			}
 		}
-		return false;
+	}
+	return false;
 	}
 }
