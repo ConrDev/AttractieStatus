@@ -12,8 +12,9 @@ public class Load {
 	
 	public static void Config() {
 		FileConfiguration config = Configs.getConfigs().getConfig();
-		config.addDefault("Prefix", "&6[AS]");
-		//config.addDefault("Language", "en_US");
+		config.addDefault("prefix", "&6[AS]");
+		//config.addDefault("language", "en_US");
+		config.addDefault("menu.size", 27);
 		
 		config.options().copyDefaults(true);
 		

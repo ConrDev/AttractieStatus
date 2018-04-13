@@ -44,7 +44,7 @@ public class SignEvent implements Listener {
 		return message.replace("&", "§");
 	}
 	
-	private static final String prefix = color(Configs.getConfigs().getConfig().get("Prefix")+ "").toString();
+	private static final String prefix = color(Configs.getConfigs().getConfig().get("prefix")+ "").toString();
 	
 	@EventHandler
 	public void attractieSign(SignChangeEvent sign) {

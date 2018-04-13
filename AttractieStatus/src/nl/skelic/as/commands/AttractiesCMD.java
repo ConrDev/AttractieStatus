@@ -22,13 +22,22 @@ public class AttractiesCMD implements CommandExecutor {
 		if (!(sender instanceof Player)) {
 			sender.sendMessage(MsgUtil.NOTPLR.getMessage());
 			return false;
-		}
-
+		} else {
 		Player player = (Player) sender;
-		if (sender.hasPermission("attractiestatus.attracties")) {
-			Menus.attractiesMenu(player);
-			return false;
+		if (args.length < 1) {
+			if (sender.hasPermission("attractiestatus.attracties")) {
+				Menus.attractiesMenu(player);
+				return false;
+			}
+		} else {
+			if (args[0].equalsIgnoreCase("edit")) {
+				if (sender.hasPermission("attractiestatus.attracties.edit")) {
+					Menus.attEditMenu(player);
+					return false;
+				}
+			}
 		}
+	}
 	return false;
 	}
 }

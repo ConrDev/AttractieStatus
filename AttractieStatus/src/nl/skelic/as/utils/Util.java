@@ -14,7 +14,7 @@ public class Util {
 	
 	private Core plugin;
 	
-	public static final String prefix = (Configs.getConfigs().color(Configs.getConfigs().getConfig().get("Prefix") + " ") + ChatColor.RESET);
+	public static final String prefix = (Configs.getConfigs().color(Configs.getConfigs().getConfig().get("prefix") + " ") + ChatColor.RESET);
 	
 	public Util(Core pluginInstance) {
 		plugin = pluginInstance;
