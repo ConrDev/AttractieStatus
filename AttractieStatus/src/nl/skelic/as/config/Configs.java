@@ -14,11 +14,11 @@ public class Configs {
 	private File configFile;
 	private FileConfiguration config;
 	
+	private	File langFile;
+	private FileConfiguration lang;
+	
 	private	File langNLFile;
 	private FileConfiguration langNL;
-	
-	private	File langENFile;
-	private FileConfiguration langEN;
 	
 	private	File attractiesFile;
 	private FileConfiguration attracties;
@@ -32,10 +32,10 @@ public class Configs {
 		configManager = this;
 		configFile = new File(plugin.getDataFolder(), "config.yml");
 		config = YamlConfiguration.loadConfiguration(configFile);
-		langNLFile = new File(plugin.getDataFolder() + File.separator + "Languages", "nl_NL.yml");
-		langNL = YamlConfiguration.loadConfiguration(configFile);
-		langENFile = new File(plugin.getDataFolder() + File.separator + "Languages", "en_US.yml");
-		langEN = YamlConfiguration.loadConfiguration(configFile);
+		langFile = new File(plugin.getDataFolder(), "lang.yml");
+		lang = YamlConfiguration.loadConfiguration(langFile);
+		langNLFile = new File(plugin.getDataFolder(), "langNL.yml");
+		langNL = YamlConfiguration.loadConfiguration(langNLFile);
 		attractiesFile = new File(plugin.getDataFolder(), "attracties.yml");
 		attracties = YamlConfiguration.loadConfiguration(attractiesFile);
 		zonesFile = new File(plugin.getDataFolder(), "zones.yml");
@@ -45,8 +45,8 @@ public class Configs {
 	public void save() {
 		try {
 			config.save(configFile);
+			lang.save(langFile);
 			langNL.save(langNLFile);
-			langEN.save(langENFile);
 			//attracties.save(attractiesFile);
 			//zones.save(zonesFile);
 		} catch (IOException e) {
@@ -74,12 +74,12 @@ public class Configs {
 		return langNL;
 	}
 	
-	public File getLangENFile() {
-		return langENFile;
+	public File getLangFile() {
+		return langFile;
 	}
 	
-	public FileConfiguration getLangEN() {
-		return langEN;
+	public FileConfiguration getLang() {
+		return lang;
 	}
 	
 	public File getAttractiesFile() {

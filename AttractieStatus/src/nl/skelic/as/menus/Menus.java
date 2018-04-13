@@ -20,14 +20,11 @@ public class Menus {
 	private static Core plugin;
 	
 	public  Menus(Core plugin) {
-		this.plugin = plugin;
+		plugin = plugin;
 	}
 	
-	static File aFolder = new File(plugin.getDataFolder() + File.separator + "Attracties" + File.separator);
-	static File[] aList = aFolder.listFiles();
-	
 	public static void attractiesMenu(Player player) {
-		Inventory inv = Bukkit.createInventory(null, 27, "§lAttracties");
+		Inventory inv = Bukkit.createInventory(null, 45, "§lAttracties");
 		
 		ItemStack closeIcon = new ItemStack(Material.BARRIER, 1);
 		ItemMeta closeMeta = closeIcon.getItemMeta();
@@ -39,7 +36,6 @@ public class Menus {
 		borderMeta.setDisplayName("");
 		borderIcon.setItemMeta(borderMeta);
 		
-		inv.setItem(21, closeIcon);
 		
 		/*for (int i = 0; i < aList.length; i++) {
 			if (aList[i].isFile()) {
@@ -57,20 +53,25 @@ public class Menus {
 				return;
 			}
 			return;
-		}
+		}*/
 		
-		for (int iii = 0; iii < 9; iii++){
-			inv.setItem(iii, borderIcon);
-			inv.setItem(iii + 18, borderIcon);
-			return;
-        }*/
+	    /*for (int i = 0; i < inv.getContents().length; i++) {
+	        if ((i >= 0 && i <= 8) || (i >= 19 && i <= 27) || (i % 9 == 0) || ((i-8) % 9 == 0)) {
+	            inv.setItem(i, borderIcon);
+	        }
+	    }*/
 		
-		/*BukkitRunnable runnable = new BukkitRunnable() {
+		for(int i = 0; i < inv.getContents().length; i++) {
+	        if((i >= 0 && i <= 8) || (i >= 36 && i <= 44) || (i % 9 == 0) || ((i-8) % 9 == 0))
+	            inv.setItem(i, borderIcon);
+	    }
+		
+		BukkitRunnable runnable = new BukkitRunnable() {
 			@Override
 	        public void run() {
 				for(int i = 0; i < inv.getContents().length; i++) {
 					ItemStack is = inv.getItem(i);
-					if(is == null || is.getType() == Material.AIR || is.getType() == Material.STAINED_GLASS_PANE) {
+					if(is == null || is.getType() == Material.AIR) {
 						ItemStack attractieIcon = new ItemStack(Material.SUGAR, 1);
 	       				ItemMeta attractieMeta = attractieIcon.getItemMeta();
 	       				attractieMeta.setDisplayName("§c§l" + aList[i].getName());
@@ -79,15 +80,15 @@ public class Menus {
 	       				//cokeMeta.setLore(cokeLore);
 	       				attractieIcon.setItemMeta(attractieMeta);
 	       				
-	       				inv.setItem(i, attractieIcon);
-	                   	}
-	               	}
-	           	}
-	       };
+	       				inv.setItem(i, new ItemStack(Material.STAINED_GLASS_PANE, 1, (byte) (new Random().nextInt(6)+1)));  
+	            	}
+	        	}
+	    	}
+	    };
 	     
-	       Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, runnable, 0l, 10l);*/
+	    Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, runnable, 0l, 10l);
 		
-	       player.openInventory(inv);
+	   	player.openInventory(inv);
 	}
 	
 	public static void zonesMenu(Player player) {

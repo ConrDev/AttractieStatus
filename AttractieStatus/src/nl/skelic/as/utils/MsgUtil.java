@@ -5,9 +5,9 @@ import org.bukkit.ChatColor;
 import nl.skelic.as.config.Configs;
 
 public enum MsgUtil {
-	NOPERM(Util.prefix + Configs.getConfigs().color(Configs.getConfigs().getLangNL().getString("no-permissions"))),
-	NOTPLR(Util.prefix + Configs.getConfigs().color(Configs.getConfigs().getLangNL().getString("player-only"))),
-	CMDNF(Util.prefix + Configs.getConfigs().color(Configs.getConfigs().getLangNL().getString("command-not-found")));
+	NOPERM(Util.prefix + Configs.getConfigs().color(Configs.getConfigs().getLang().getString("errors.no-permissions"))),
+	NOTPLR(Util.prefix + Configs.getConfigs().color(Configs.getConfigs().getLang().getString("errors.player-only"))),
+	CMDNF(Util.prefix + Configs.getConfigs().color(Configs.getConfigs().getLang().getString("errors.command-not-found")));
 	
 	private static MsgUtil msgU;
 	

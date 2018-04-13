@@ -2,6 +2,7 @@ package nl.skelic.as.events;
 
 import java.io.File;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Sign;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -13,11 +14,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import net.md_5.bungee.api.ChatColor;
 import nl.skelic.as.Core;
 import nl.skelic.as.config.Configs;
-import nl.skelic.as.utils.MsgUtil;
-import nl.skelic.as.utils.TpUtil;
 import nl.skelic.as.utils.Util;
 
 public class SignEvent implements Listener {
@@ -50,7 +48,7 @@ public class SignEvent implements Listener {
 	
 	@EventHandler
 	public void attractieSign(SignChangeEvent sign) {
-		attractieDataFile = new File(plugin.getDataFolder() + File.separator + "Attracties" + File.separator, sign.getLine(1).toString() + ".yml");
+		attractieDataFile = new File(plugin.getDataFolder() + File.separator + "Attractions" + File.separator, sign.getLine(1).toString() + ".yml");
 		attractieDataConfig = YamlConfiguration.loadConfiguration(attractieDataFile);
 		Player player = sign.getPlayer();
 		if (sign.getLine(0).equalsIgnoreCase("[AS]")) {
@@ -58,11 +56,11 @@ public class SignEvent implements Listener {
 				sign.setLine(0, prefix);
 				sign.setLine(1, sign.getLine(1));
 				sign.setLine(2, cfg.color(attractieDataConfig.getString("Status")));
-				player.sendMessage(Util.prefix + ChatColor.GREEN + "Attractie Sign succesvol aangemaakt!");
+				player.sendMessage(Util.prefix + ChatColor.GREEN + Configs.getConfigs().getLang().getString("messages.asigns.created"));
 			} else {
 				sign.setLine(0, prefix);
-				sign.setLine(1, ChatColor.RED + "Geen Attractie");
-				player.sendMessage(Util.prefix + ChatColor.RED + "Attractie niet gevonden!");
+				sign.setLine(1, ChatColor.RED + "No Attraction");
+				player.sendMessage(Util.prefix + ChatColor.RED + Configs.getConfigs().getLang().getString("messages.attraction.not-found"));
 			}
 		}
 	}
@@ -73,15 +71,15 @@ public class SignEvent implements Listener {
 			if (PIE.getClickedBlock().getState() instanceof Sign) {
 				Player player = PIE.getPlayer();
 				Sign sign = (Sign) PIE.getClickedBlock().getState();
-				attractieDataFile = new File(plugin.getDataFolder() + File.separator + "Attracties" + File.separator, sign.getLine(1).toString() + ".yml");
+				attractieDataFile = new File(plugin.getDataFolder() + File.separator + "Attractions" + File.separator, sign.getLine(1).toString() + ".yml");
 				attractieDataConfig = YamlConfiguration.loadConfiguration(attractieDataFile);
 			
 				if (sign.getLine(0).equalsIgnoreCase(prefix)) {
 					if (attractieDataFile.exists()) {
-						player.teleport(parseLoc(player, attractieDataConfig.getString("Cordinaten")));
-						player.sendMessage(Util.prefix + ChatColor.GREEN + "U bent geteleporteerd naar " + sign.getLine(1).toString());
+						player.teleport(parseLoc(player, attractieDataConfig.getString("Coordinates")));
+						player.sendMessage(Util.prefix + ChatColor.GREEN + Configs.getConfigs().getLang().getString("messages.succes-tp") + " " + sign.getLine(1).toString());
 					} else {
-						player.sendMessage(Util.prefix + ChatColor.RED + "De attractie kon niet gevonden worden");
+						player.sendMessage(Util.prefix + ChatColor.RED + Configs.getConfigs().getLang().getString("messages.attraction.not-found"));
 					}
 				}
 			}
@@ -91,7 +89,7 @@ public class SignEvent implements Listener {
 				Sign sign = (Sign) PIE.getClickedBlock().getState();
 				
 				if (sign.getLine(0).equalsIgnoreCase(prefix)) {
-					player.sendMessage(Util.prefix + ChatColor.GREEN + "de gekoppelde sign is succesvol verwijderd");
+					player.sendMessage(Util.prefix + ChatColor.GREEN + Configs.getConfigs().getLang().getString("messages.asigns.removed"));
 				}
 			}
 		} else {

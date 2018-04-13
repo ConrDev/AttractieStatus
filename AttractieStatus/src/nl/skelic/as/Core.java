@@ -36,8 +36,8 @@ public class Core extends JavaPlugin {
 		
 		// Loading Configs
 		Load.Config();
+		Load.Lang();
 		Load.LangNL();
-		Load.LangEN();
 		
 		// Loadin Util
 		util = new Util(this);
@@ -51,20 +51,20 @@ public class Core extends JavaPlugin {
 		pm.registerEvents(new SignEvent(this), this);
 		
 		// Finished Message
-		Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.DARK_GREEN + "------{AttractieStatus Plugin}-----");
+		Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.DARK_GREEN + "------{AttractionStatus Plugin}-----");
 		Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.DARK_GREEN + "|" + ChatColor.GREEN + "      Created by: SkelicStylz    " + ChatColor.DARK_GREEN + "|");
 		Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.DARK_GREEN + "|" + ChatColor.GREEN + "           Version: v" + getDescription().getVersion() + "         " + ChatColor.DARK_GREEN + "|");
 		Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.DARK_GREEN + "|" + ChatColor.GREEN + "      Plugin Status: Enabled     " + ChatColor.DARK_GREEN + "|");
 		Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.DARK_GREEN + "-----------------------------------");
 		
 		// Loading Folders
-		if (new File(getDataFolder(), "Attracties").mkdirs()) Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.GREEN + "Generated Attracties folder!");
+		if (new File(getDataFolder(), "Attractions").mkdirs()) Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.GREEN + "Generated Attractions folder!");
 		if (new File(getDataFolder(), "Zones").mkdirs()) Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.GREEN + "Generated Zones folder!");
 	}
 	
 	@Override
 	public void onDisable() {
-		Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.DARK_GREEN + "------{AttractieStatus Plugin}-----");
+		Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.DARK_GREEN + "------{AttractionStatus Plugin}-----");
 		Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.DARK_GREEN + "|" + ChatColor.GREEN + "      Created by: SkelicStylz    " + ChatColor.DARK_GREEN + "|");
 		Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.DARK_GREEN + "|" + ChatColor.GREEN + "           Version: v" + getDescription().getVersion() + "         " + ChatColor.DARK_GREEN + "|");
 		Bukkit.getConsoleSender().sendMessage(Util.prefix + ChatColor.DARK_GREEN + "|" + ChatColor.GREEN + "      Plugin Status: Disabled    " + ChatColor.DARK_GREEN + "|");
